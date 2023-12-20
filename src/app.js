@@ -1,5 +1,4 @@
 import axios from "axios";
-import SimpleLightbox from "simplelightbox";
 
 const apiKey = "41180960-205db463c927a63d3b7755308"; // Замініть на свій ключ Pixabay API
 const perPage = 20;

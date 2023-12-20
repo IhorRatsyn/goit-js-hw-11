@@ -1,7 +1,11 @@
+import SimpleLightbox from 'simplelightbox'
+import "simplelightbox/dist/simple-lightbox.min.css";
+import axios from 'axios'
+import Notiflix from 'notiflix'
 const searchForm = document.getElementById("search-form");
 const gallery = document.getElementById("gallery");
 const loadMoreBtn = document.getElementById("load-more");
-const lightbox = new SimpleLightbox();
+const lightbox = new SimpleLightbox('.photo-card__link');
 
 let currentPage = 1;
 let currentQuery = "";
@@ -28,14 +32,14 @@ loadMoreBtn.addEventListener("click", function () {
   searchImages(currentQuery, currentPage);
 });
 
-function searchImages(query, page) {
+function searchImages(query, page, perPage= 10) {
   axios
     .get("", { params: { q: query, page, per_page: perPage } })
     .then(handleSuccess)
     .catch(handleError);
 }
 
-function handleSuccess(response) {
+function handleSuccess(response, perPage = 10) {
   const images = response.data.hits;
 
   if (images.length === 0) {
@@ -70,6 +74,10 @@ function createPhotoCard(image) {
   const card = document.createElement("div");
   card.classList.add("photo-card");
 
+  const link = document.createElement('a');
+  link.href=image.webformatURL
+  link.classList.add("photo-card__link");
+
   const img = document.createElement("img");
   img.src = image.webformatURL;
   img.alt = image.tags;
@@ -84,7 +92,8 @@ function createPhotoCard(image) {
     <p class="info-item"><b>Downloads:</b> ${image.downloads}</p>
   `;
 
-  card.appendChild(img);
+  link.appendChild(img);
+  card.appendChild(link);
   card.appendChild(info);
 
   return card;

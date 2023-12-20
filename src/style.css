@@ -3,15 +3,25 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 100vh;
   background-color: #f5f5f5;
 }
 
+.overlay {
+  background-color: aquamarine;
+  width: 100%;
+}
+.overlay .container {
+  min-height: auto;
+}
+
 .container {
+  min-height: 100vh;
+  box-sizing: border-box;
+  width: 100%;
   text-align: center;
-  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
